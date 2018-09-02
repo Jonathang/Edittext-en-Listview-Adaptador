@@ -1,0 +1,18 @@
+---------------------------------------- Arraylist Getter y Setter ------------------------------
+public class entrada_lista {
+     String Nombre;
+     String Precio;
+
+    public entrada_lista(String nombre, String precio) {
+        Nombre = nombre;
+        Precio = precio;
+    }
+
+    public String getNombre() {
+        return Nombre;
+    }
+
+    public String getPrecio() {
+        return Precio;
+    }
+}
