@@ -1,0 +1,56 @@
+public class MainActivity extends AppCompatActivity {
+
+    ListView lst_contenedor;
+    ArrayList<entrada_lista> datos;
+
+    Button btn_agregar;
+    EditText txt_Nombre, txt_Precio;
+    @Override    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        lst_contenedor =  findViewById(R.id.lst_contenedor);
+        datos = new ArrayList<>();
+
+        btn_agregar = findViewById(R.id.btn_agregar);
+        txt_Nombre = findViewById(R.id.txt_nombre);
+        txt_Precio = findViewById(R.id.txt_precio);
+
+        for (int i=0; i<1; i++){
+            datos.add(new entrada_lista("Producto","Precio"));
+        }
+
+        CargarDatos();
+
+        btn_agregar.setOnClickListener(new View.OnClickListener() {
+            @Override            public void onClick(View view) {
+                if (txt_Nombre.getText().length()>3){
+                    datos.add(new entrada_lista(txt_Nombre.getText().toString(), txt_Precio.getText().toString()));
+                    txt_Nombre.setText("");
+                    txt_Precio.setText("");
+                    CargarDatos();
+                }
+            }
+        });
+    }
+
+    private void CargarDatos(){
+        lst_contenedor.setAdapter(new Adaptador(MainActivity.this, R.layout.modelo, datos) {
+            @Override            public void DatosEntrada(Object entrada, View view) {
+
+                if (view !=null){
+                    TextView lvl_nombre = view.findViewById(R.id.lvl_nombre);
+                    if (lvl_nombre !=null) {
+                        lvl_nombre.setText(((entrada_lista)entrada).getNombre());
+                    }
+                    TextView lvl_precio = view.findViewById(R.id.lvl_precio);
+                    if (lvl_precio !=null){
+                        lvl_precio.setText(((entrada_lista)entrada).getPrecio());
+                    }
+                }
+
+
+            }
+        });
+    }
+}
